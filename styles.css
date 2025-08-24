@@ -1,0 +1,632 @@
+/* IEP 填寫小工具樣式表 */
+/* ===================================== */
+
+/* 基礎重置和字型設定 - 就像建築房子的地基 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft JhengHei', sans-serif;
+  line-height: 1.6;
+  color: #2E2E2E;
+  background: linear-gradient(135deg, #003366 0%, #1A1F36 50%, #2E2E2E 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* 主容器 - 像是一個精美的畫框，包裹住內容 */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #F5F5F5;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 51, 102, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.6s ease-out;
+  border: 1px solid rgba(102, 204, 255, 0.2);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 標題區域 - 像是店家的招牌，要醒目又優雅 */
+.header {
+  background: linear-gradient(135deg, #003366 0%, #1A1F36 100%);
+  color: #F5F5F5;
+  padding: 40px 30px;
+  text-align: center;
+  border-bottom: 3px solid #3399FF;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Header 中的連結樣式 - 就像是夜空中閃亮的星星 */
+.header a {
+  color: #66CCFF;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  background: rgba(102, 204, 255, 0.1);
+  border: 1px solid rgba(102, 204, 255, 0.3);
+}
+
+.header a:hover {
+  color: #F5F5F5;
+  background: rgba(102, 204, 255, 0.2);
+  border-color: #66CCFF;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 204, 255, 0.4);
+}
+
+.header a:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(102, 204, 255, 0.3);
+}
+
+.header a:focus {
+  outline: 2px solid #66CCFF;
+  outline-offset: 2px;
+}
+
+/* 安全提示區域 - 就像是重要的安全標示牌 */
+.security-notice {
+  background: rgba(255, 193, 7, 0.1);
+  border: 2px solid rgba(255, 193, 7, 0.3);
+  border-left: 6px solid #ffc107;
+  margin: 0;
+  padding: 20px;
+}
+
+.notice-content h3 {
+  color: #1A1F36;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notice-content p {
+  color: #1A1F36;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.notice-content strong {
+  color: #d97706;
+  font-weight: 600;
+}
+
+/* 清空資料按鈕 - 警告色設計 */
+.clear-data-btn {
+  background: #dc2626;
+  color: white;
+  border: 2px solid #dc2626;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-data-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: translateY(-1px);
+}
+
+.clear-data-btn:active {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  transform: translateY(0);
+}
+
+/* 表單區域 - 就像是一張精心設計的問卷 */
+.form-container {
+  padding: 40px 30px;
+}
+
+.form-group {
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+.form-group:nth-child(5) { animation-delay: 0.5s; }
+.form-group:nth-child(6) { animation-delay: 0.6s; }
+.form-group:nth-child(7) { animation-delay: 0.7s; }
+.form-group:nth-child(8) { animation-delay: 0.8s; }
+.form-group:nth-child(9) { animation-delay: 0.9s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1A1F36;
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 12px;
+}
+
+/* 為標籤加上小圓點裝飾 - 像是項目符號但更美觀 */
+label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #3399FF, #66CCFF);
+  border-radius: 50%;
+}
+
+/* 欄位說明文字樣式 - 就像是貼心的小提示卡片 */
+.field-description {
+  background: rgba(102, 204, 255, 0.05);
+  border: 1px solid rgba(51, 153, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #1A1F36;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.field-description:hover {
+  background: rgba(102, 204, 255, 0.1);
+  border-color: rgba(51, 153, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(51, 153, 255, 0.1);
+}
+
+/* 說明文字中的粗體標題 */
+.field-description strong {
+  color: #003366;
+  font-weight: 600;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* 說明文字始終展開 */
+.field-description {
+  max-height: none;
+  overflow: visible;
+}
+
+/* 文字輸入區域 - 像是一張舒適的書寫紙 */
+textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 16px;
+  border: 2px solid rgba(51, 153, 255, 0.3);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: #F5F5F5;
+  color: #1A1F36;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3399FF;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+textarea:hover {
+  border-color: #3399FF;
+  background: white;
+}
+
+/* 提交按鈕 - 像是一個邀請用戶點擊的精美按鈕 */
+.submit-container {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(51, 153, 255, 0.2);
+}
+
+.submit-btn {
+  background: #3399FF;
+  color: #F5F5F5;
+  border: 2px solid #3399FF;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.submit-btn:hover {
+  background: #66CCFF;
+  border-color: #66CCFF;
+  color: #003366;
+}
+
+.submit-btn:active {
+  background: #003366;
+  border-color: #003366;
+  color: #F5F5F5;
+}
+
+/* 輸出結果區域 - 像是一個展示櫥窗 */
+.output-section {
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(26, 31, 54, 0.05);
+  border-top: 3px solid #3399FF;
+}
+
+.output-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1A1F36;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#output {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid rgba(51, 153, 255, 0.2);
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1A1F36;
+  min-height: 60px;
+  box-shadow: 0 4px 12px rgba(51, 153, 255, 0.1);
+}
+
+/* 響應式設計 - 就像變形金剛，能適應不同環境 */
+
+/* 平板設備 */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .header {
+    padding: 30px 20px;
+  }
+
+  .form-container,
+  .output-section {
+    padding: 30px 20px;
+  }
+
+  .form-group {
+    margin-bottom: 28px;
+  }
+
+  textarea {
+    min-height: 70px;
+    padding: 14px;
+  }
+
+  .field-description {
+    padding: 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* 手機設備 */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    border-radius: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .header {
+    padding: 25px 15px;
+  }
+
+  .form-container,
+  .output-section {
+    padding: 25px 15px;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    min-height: 60px;
+    padding: 12px;
+    font-size: 16px; /* 防止 iOS 縮放 */
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  .submit-container {
+    margin-top: 30px;
+    padding-top: 24px;
+  }
+
+  #output {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+  .field-description {
+    padding: 12px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
+
+  /* 手機設備上的連結樣式調整 */
+  .header a {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  /* 手機設備上的安全提示調整 */
+  .security-notice {
+    padding: 15px;
+  }
+
+  .notice-content h3 {
+    font-size: 1rem;
+  }
+
+  .notice-content p {
+    font-size: 0.9rem;
+  }
+
+  .clear-data-btn {
+    width: 100%;
+    padding: 10px 16px;
+  }
+}
+
+/* 極小螢幕設備 */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .form-container,
+  .output-section {
+    padding: 20px 12px;
+  }
+
+  textarea {
+    padding: 10px;
+  }
+
+  #output {
+    padding: 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* 深色模式支援 - 為喜歡深色主題的用戶準備 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #1A1F36 0%, #003366 50%, #2E2E2E 100%);
+  }
+
+  .container {
+    background: #2E2E2E;
+    color: #F5F5F5;
+    border-color: rgba(102, 204, 255, 0.3);
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1A1F36 0%, #003366 100%);
+    border-bottom-color: #66CCFF;
+  }
+
+  label {
+    color: #F5F5F5;
+  }
+
+  textarea {
+    background: #1A1F36;
+    border-color: rgba(102, 204, 255, 0.4);
+    color: #F5F5F5;
+  }
+
+  textarea:focus {
+    background: #003366;
+    border-color: #66CCFF;
+    box-shadow: 0 0 0 3px rgba(102, 204, 255, 0.2);
+  }
+
+  textarea:hover {
+    background: #003366;
+    border-color: #66CCFF;
+  }
+
+  .output-section {
+    background: rgba(26, 31, 54, 0.3);
+    border-top-color: #66CCFF;
+  }
+
+  #output {
+    background: #1A1F36;
+    border-color: rgba(102, 204, 255, 0.4);
+    color: #F5F5F5;
+    box-shadow: 0 4px 12px rgba(102, 204, 255, 0.2);
+  }
+
+  .output-title {
+    color: #F5F5F5;
+  }
+
+  .field-description {
+    background: rgba(26, 31, 54, 0.6);
+    border-color: rgba(102, 204, 255, 0.3);
+    color: #F5F5F5;
+  }
+
+  .field-description:hover {
+    background: rgba(26, 31, 54, 0.8);
+    border-color: rgba(102, 204, 255, 0.5);
+    box-shadow: 0 2px 8px rgba(102, 204, 255, 0.2);
+  }
+
+  .field-description strong {
+    color: #66CCFF;
+  }
+
+  .submit-btn {
+    background: #66CCFF;
+    border-color: #66CCFF;
+    color: #1A1F36;
+  }
+
+  .submit-btn:hover {
+    background: #3399FF;
+    border-color: #3399FF;
+    color: #F5F5F5;
+  }
+
+  .submit-btn:active {
+    background: #F5F5F5;
+    border-color: #F5F5F5;
+    color: #1A1F36;
+  }
+
+  /* 深色模式下的連結樣式 */
+  .header a {
+    color: #66CCFF;
+    background: rgba(102, 204, 255, 0.1);
+    border-color: rgba(102, 204, 255, 0.3);
+  }
+
+  .header a:hover {
+    color: #F5F5F5;
+    background: rgba(102, 204, 255, 0.2);
+    border-color: #66CCFF;
+    box-shadow: 0 2px 8px rgba(102, 204, 255, 0.4);
+  }
+
+  .header a:focus {
+    outline-color: #66CCFF;
+  }
+
+  /* 深色模式下的安全提示 */
+  .security-notice {
+    background: rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.4);
+    border-left-color: #fbbf24;
+  }
+
+  .notice-content h3,
+  .notice-content p {
+    color: #F5F5F5;
+  }
+
+  .notice-content strong {
+    color: #fbbf24;
+  }
+
+  .clear-data-btn {
+    background: #ef4444;
+    border-color: #ef4444;
+  }
+
+  .clear-data-btn:hover {
+    background: #f87171;
+    border-color: #f87171;
+  }
+}
+
+/* 高對比度無障礙支援 */
+@media (prefers-contrast: high) {
+  textarea {
+    border-width: 3px;
+  }
+  
+  .submit-btn {
+    border: 2px solid #1f2937;
+  }
+}
+
+/* 減少動畫效果（為敏感用戶） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

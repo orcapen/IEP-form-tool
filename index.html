@@ -4,385 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IEP 填寫小工具</title>
-  <style>
-    /* 基礎重置和字型設定 - 就像建築房子的地基 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft JhengHei', sans-serif;
-      line-height: 1.6;
-      color: #2d3748;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    /* 主容器 - 像是一個精美的畫框，包裹住內容 */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      animation: slideUp 0.6s ease-out;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 標題區域 - 像是店家的招牌，要醒目又優雅 */
-    .header {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: white;
-      padding: 40px 30px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      font-weight: 300;
-    }
-
-    /* 表單區域 - 就像是一張精心設計的問卷 */
-    .form-container {
-      padding: 40px 30px;
-    }
-
-    .form-group {
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-    .form-group:nth-child(3) { animation-delay: 0.3s; }
-    .form-group:nth-child(4) { animation-delay: 0.4s; }
-    .form-group:nth-child(5) { animation-delay: 0.5s; }
-    .form-group:nth-child(6) { animation-delay: 0.6s; }
-    .form-group:nth-child(7) { animation-delay: 0.7s; }
-    .form-group:nth-child(8) { animation-delay: 0.8s; }
-    .form-group:nth-child(9) { animation-delay: 0.9s; }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #374151;
-      margin-bottom: 12px;
-      position: relative;
-      padding-left: 12px;
-    }
-
-    /* 為標籤加上小圓點裝飾 - 像是項目符號但更美觀 */
-    label::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      border-radius: 50%;
-    }
-
-    /* 文字輸入區域 - 像是一張舒適的書寫紙 */
-    textarea {
-      width: 100%;
-      min-height: 80px;
-      padding: 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 1rem;
-      line-height: 1.5;
-      resize: vertical;
-      transition: all 0.3s ease;
-      background: #fafafa;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #4f46e5;
-      background: white;
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-      transform: translateY(-2px);
-    }
-
-    textarea:hover {
-      border-color: #9ca3af;
-      background: white;
-    }
-
-    /* 提交按鈕 - 像是一個邀請用戶點擊的精美按鈕 */
-    .submit-container {
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .submit-btn {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: white;
-      border: none;
-      padding: 16px 32px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-      min-width: 200px;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    /* 輸出結果區域 - 像是一個展示櫥窗 */
-    .output-section {
-      margin-top: 40px;
-      padding: 30px;
-      background: #f8fafc;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .output-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    #output {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      white-space: pre-wrap;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #374151;
-      min-height: 60px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    /* 響應式設計 - 就像變形金剛，能適應不同環境 */
-    
-    /* 平板設備 */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .header {
-        padding: 30px 20px;
-      }
-
-      .form-container,
-      .output-section {
-        padding: 30px 20px;
-      }
-
-      .form-group {
-        margin-bottom: 28px;
-      }
-
-      textarea {
-        min-height: 70px;
-        padding: 14px;
-      }
-    }
-
-    /* 手機設備 */
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-
-      .container {
-        border-radius: 15px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .subtitle {
-        font-size: 1rem;
-      }
-
-      .header {
-        padding: 25px 15px;
-      }
-
-      .form-container,
-      .output-section {
-        padding: 25px 15px;
-      }
-
-      .form-group {
-        margin-bottom: 24px;
-      }
-
-      label {
-        font-size: 1rem;
-        margin-bottom: 10px;
-      }
-
-      textarea {
-        min-height: 60px;
-        padding: 12px;
-        font-size: 16px; /* 防止 iOS 縮放 */
-      }
-
-      .submit-btn {
-        width: 100%;
-        padding: 14px 24px;
-        font-size: 1rem;
-      }
-
-      .submit-container {
-        margin-top: 30px;
-        padding-top: 24px;
-      }
-
-      #output {
-        padding: 20px;
-        font-size: 0.9rem;
-      }
-    }
-
-    /* 極小螢幕設備 */
-    @media (max-width: 360px) {
-      h1 {
-        font-size: 1.6rem;
-      }
-
-      .form-container,
-      .output-section {
-        padding: 20px 12px;
-      }
-
-      textarea {
-        padding: 10px;
-      }
-
-      #output {
-        padding: 16px;
-        font-size: 0.85rem;
-      }
-    }
-
-    /* 深色模式支援 - 為喜歡深色主題的用戶準備 */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      }
-
-      .container {
-        background: #1f2937;
-        color: #f9fafb;
-      }
-
-      label {
-        color: #f3f4f6;
-      }
-
-      textarea {
-        background: #374151;
-        border-color: #4b5563;
-        color: #f9fafb;
-      }
-
-      textarea:focus {
-        background: #4b5563;
-        border-color: #6366f1;
-      }
-
-      .output-section {
-        background: #111827;
-        border-color: #374151;
-      }
-
-      #output {
-        background: #374151;
-        border-color: #4b5563;
-        color: #f3f4f6;
-      }
-
-      .output-title {
-        color: #f3f4f6;
-      }
-    }
-
-    /* 高對比度無障礙支援 */
-    @media (prefers-contrast: high) {
-      textarea {
-        border-width: 3px;
-      }
-      
-      .submit-btn {
-        border: 2px solid #1f2937;
-      }
-    }
-
-    /* 減少動畫效果（為敏感用戶） */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+  <!-- 外部樣式表連結 -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- 主容器 - 包裹整個應用程式 -->
@@ -390,63 +13,124 @@
     <!-- 標題區域 -->
     <div class="header">
       <h1>IEP 填寫小工具</h1>
-      <p class="subtitle">個別化教育計畫輔助工具</p>
+      <p class="subtitle">個別化教育計畫輔助工具<br>by <a href="aspieorca.org" target="_blank">亞斯星來的殺人鯨</a></p>
+    </div>
+
+    <!-- 安全提示區域 -->
+    <div class="security-notice">
+      <div class="notice-content">
+        <h3>🔒 資料安全提醒</h3>
+        <p>
+          本工具會自動儲存您的輸入內容到瀏覽器本地，以防止資料遺失。<br>
+          <strong>重要：</strong>資料會保留在您的設備上直到手動清除。<br>
+          如在共用電腦使用，請於使用完畢後點擊下方「清空所有資料」按鈕。
+        </p>
+        <button type="button" id="clearDataBtn" class="clear-data-btn">🗑️ 清空所有資料</button>
+      </div>
     </div>
 
     <!-- 表單區域 -->
     <div class="form-container">
-      <form id="iepForm">
+  <form id="iepForm">
         <!-- 每個輸入欄位都包裝在 form-group 中 -->
         <div class="form-group">
-          <label>1. 健康</label>
-          <textarea name="健康" placeholder="請描述學生的健康狀況..."></textarea>
+          <label>1. 健康與感官</label>
+          <div class="field-description">
+            <strong>健康狀況：</strong>身體健康情形、醫療與使用藥物介入對其學習、參與適齡活動及生活適應之限制、影響與需求。<br>
+            <strong>感官功能：</strong>視覺、聽覺功能或身體四肢外觀、四肢功能及整體體能表現，對其學習、參與適齡活動及生活適應的限制、影響與需求。<br>
+            <strong>輔具使用：</strong>如有使用輔具，需說明其適用性及使用後現況的影響。
+          </div>
+          <textarea name="健康與感官" placeholder="例如：視力正常，聽力輕度損失需配戴助聽器，整體體能表現良好，無特殊藥物需求..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>2. 感官與知覺</label>
-          <textarea name="感官與知覺" placeholder="請描述學生的感官與知覺能力..."></textarea>
+          <label>2. 知覺與動作</label>
+          <div class="field-description">
+            <strong>感官知覺：</strong>視知覺、聽知覺、精細與粗大動作。<br>
+            <strong>動作能力：</strong>動作協調、工具操作、平衡、運動機能、技巧性運動技能。<br>
+            <strong>行動能力：</strong>參與運動、定位、行動（上下樓、社區移動）及輔具運用等能力表現。<br>
+            <strong>影響評估：</strong>對學習、參與適齡活動及生活適應的限制、影響與需求。
+          </div>
+          <textarea name="知覺與動作" placeholder="例如：手眼協調良好，能使用剪刀、筆等工具，平衡感稍弱需扶持上下樓梯..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>3. 知覺動作</label>
-          <textarea name="知覺動作" placeholder="請描述學生的知覺動作能力..."></textarea>
+          <label>3. 認知與智力</label>
+          <div class="field-description">
+            <strong>智力測驗結果：</strong>最近一次智力測驗結果。<br>
+            <strong>測驗工具：</strong>魏氏兒童智力量表或其他標準化智力測驗，如 CPM、SPM、國中入學團體智力測驗、托尼非語文智力測驗、單保德圖畫詞彙測驗等。
+          </div>
+          <textarea name="認知與智力" placeholder="例如：魏氏兒童智力量表全量表智商 85，語文智商 80，作業智商 90..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>4. 生活自理</label>
-          <textarea name="生活自理" placeholder="請描述學生的生活自理能力..."></textarea>
+          <label>4. 認知（學習與記憶等功能）</label>
+          <div class="field-description">
+            <strong>注意力：</strong>集中性、持續性、選擇性、交替性、分配性；不同情境差異（小組、團體、個別等）。<br>
+            <strong>記憶功能：</strong>短期記憶、長期記憶、工作記憶等。<br>
+            <strong>認知歷程：</strong>理解、推理、邏輯、問題解決、計畫、執行、監控等認知歷程能力表現。<br>
+            <strong>學習管道：</strong>優勢與弱勢學習管道。<br>
+            <strong>影響評估：</strong>對學習、參與適齡活動及生活適應的限制、影響與需求。
+          </div>
+          <textarea name="認知（學習與記憶等功能）" placeholder="例如：注意力持續時間約 15 分鐘，視覺學習效果較佳，工作記憶稍弱需重複提示..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>5. 認知</label>
-          <textarea name="認知" placeholder="請描述學生的認知能力..."></textarea>
+          <label>5. 語言與溝通</label>
+          <div class="field-description">
+            <strong>溝通模式：</strong>指口語、文字、動作之表達與理解。<br>
+            <strong>互動狀況：</strong>溝通時理解、表達、互動狀況；溝通模式與有效性。<br>
+            <strong>語音狀況：</strong>聲音特質、清晰度、構音狀況、聲調及主動性/被動性造成的溝通問題。<br>
+            <strong>特殊需求：</strong>低口語或無口語學生可用「輔助溝通系統評估表」補充說明。
+          </div>
+          <textarea name="語言與溝通" placeholder="例如：口語表達清晰，能理解簡單指令，主動溝通意願較低，需要鼓勵..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>6. 溝通</label>
-          <textarea name="溝通" placeholder="請描述學生的溝通能力..."></textarea>
+          <label>6. 生活自理</label>
+          <div class="field-description">
+            <strong>自我照顧：</strong>飲食、穿著、沐浴、如廁等。<br>
+            <strong>居家生活：</strong>居家生活、生活習慣、社區運用。<br>
+            <strong>生活管理：</strong>生活管理與自我管理（金錢管理、行事規劃、準時赴約）。<br>
+            <strong>影響評估：</strong>對學習、參與適齡活動及生活適應的限制、影響與需求。
+          </div>
+          <textarea name="生活自理" placeholder="例如：能獨立進食，穿脫衣物需協助，如廁訓練中，時間概念待加強..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>7. 情緒</label>
-          <textarea name="情緒" placeholder="請描述學生的情緒表現..."></textarea>
+          <label>7. 情緒與社會人際</label>
+          <div class="field-description">
+            <strong>情緒管理：</strong>處理情緒的能力、壓力的反應與穩定度、挫折忍受力；內向或外向行為問題；固著或不當行為。<br>
+            <strong>社會人際：</strong>自我認知與瞭解、人際關係、活動參與、團體規範遵守及團體互動等技巧表現。<br>
+            <strong>影響評估：</strong>對學習、參與適齡活動及生活適應的限制、影響與需求。
+          </div>
+          <textarea name="情緒與社會人際" placeholder="例如：情緒穩定，但挫折忍受力較低，喜歡與同儕互動，遵守團體規範..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>8. 社會行為</label>
-          <textarea name="社會行為" placeholder="請描述學生的社會行為表現..."></textarea>
+          <label>8. 基本學習技能與各領域</label>
+          <div class="field-description">
+            <strong>基本技能測驗：</strong>最近一次學業基本技能（識字、詞彙、書寫、數學基礎計算、閱讀理解）測驗結果摘要。
+          </div>
+          <textarea name="基本學習技能與各領域" placeholder="例如：識字能力約國小二年級程度，基礎計算能力良好，閱讀理解需加強..."></textarea>
         </div>
         
         <div class="form-group">
-          <label>9. 學科(領域)學習</label>
-          <textarea name="學科(領域)學習" placeholder="請描述學生的學科學習狀況..."></textarea>
+          <label>9. 學科學習表現</label>
+          <div class="field-description">
+            <strong>學習表現：</strong>學科學習相關及整體學業成就表現，與學習行為及特質。<br>
+            <strong>評量方式：</strong>非正式評量或測驗、各科學業成就（如成績、學期表現、檔案評量）。<br>
+            <strong>調整成效：</strong>評量方式差異、調整後之成效。<br>
+            <strong>學習特質：</strong>個人學習行為態度、興趣與策略、作業完成的困難、調整方式與效果、優勢與弱勢學習管道。
+          </div>
+          <textarea name="學科學習表現" placeholder="例如：數學計算能力佳，國語閱讀理解需加強，對美術有興趣，作業完成需要分段提示..."></textarea>
         </div>
 
         <!-- 提交按鈕區域 -->
         <div class="submit-container">
           <button type="submit" class="submit-btn">生成 IEP 清單</button>
         </div>
-      </form>
+  </form>
     </div>
 
     <!-- 輸出結果區域 -->
@@ -467,7 +151,7 @@
 
       // 表單提交處理 - 就像收集所有答案然後整理成報告
       form.addEventListener("submit", function(e) {
-        e.preventDefault();
+      e.preventDefault();
         console.log('開始生成 IEP 清單'); // 記錄操作開始
         
         // 按鈕載入狀態 - 讓用戶知道系統正在處理
@@ -492,15 +176,15 @@
       function generateIEPList() {
         const formData = new FormData(form);
         let outputText = "";
-        let index = 1;
+      let index = 1;
         
         // 遍歷每個表單欄位，組織成格式化的文字
-        for (const [key, value] of formData.entries()) {
+      for (const [key, value] of formData.entries()) {
           const content = value.trim();
           outputText += `${index}. ${key}\n`;
           outputText += content || "（此項目暫未填寫）";
           outputText += "\n\n";
-          index++;
+        index++;
         }
         
         // 更新輸出區域，添加淡入效果
@@ -685,6 +369,51 @@
 
       // 載入頁面時嘗試恢復資料
       loadSavedData();
+
+      // 說明文字保持展開狀態 - 所有說明都清楚可見
+      console.log('說明文字已設定為永久展開模式'); // 記錄設定狀態
+
+      // 清空所有資料功能 - 就像是重置按鈕，讓一切回到最初狀態
+      const clearDataBtn = document.getElementById('clearDataBtn');
+      
+      clearDataBtn.addEventListener('click', function() {
+        // 顯示確認對話框，防止誤操作
+        const confirmClear = confirm(
+          '⚠️ 確定要清空所有已儲存的資料嗎？\n\n' +
+          '這個動作將會：\n' +
+          '• 清空目前所有輸入框的內容\n' +
+          '• 刪除瀏覽器中儲存的資料\n' +
+          '• 此動作無法復原\n\n' +
+          '確定要繼續嗎？'
+        );
+        
+        if (confirmClear) {
+          try {
+            // 清空所有輸入框
+            textareas.forEach(textarea => {
+              textarea.value = '';
+              // 觸發字數統計更新
+              textarea.dispatchEvent(new Event('input'));
+            });
+            
+            // 清空輸出區域
+            output.textContent = '點擊上方按鈕生成 IEP 清單...';
+            
+            // 刪除瀏覽器儲存的資料
+            localStorage.removeItem('iep_form_data');
+            
+            // 成功提示
+            alert('✅ 所有資料已成功清空！');
+            console.log('用戶手動清空所有資料'); // 記錄操作
+            
+          } catch (error) {
+            console.error('清空資料時發生錯誤:', error);
+            alert('❌ 清空資料時發生錯誤，請重新整理頁面後再試。');
+          }
+        } else {
+          console.log('用戶取消清空資料操作'); // 記錄取消操作
+        }
+      });
 
       console.log('IEP 工具初始化完成，所有功能已就緒'); // 記錄初始化完成
     });
