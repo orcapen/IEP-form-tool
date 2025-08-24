@@ -25,19 +25,7 @@ body {
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 51, 102, 0.3);
   overflow: hidden;
-  animation: slideUp 0.6s ease-out;
   border: 1px solid rgba(102, 204, 255, 0.2);
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* 標題區域 - 像是店家的招牌，要醒目又優雅 */
@@ -69,7 +57,6 @@ h1 {
   font-weight: 500;
   padding: 2px 6px;
   border-radius: 4px;
-  transition: all 0.3s ease;
   position: relative;
   background: rgba(102, 204, 255, 0.1);
   border: 1px solid rgba(102, 204, 255, 0.3);
@@ -79,13 +66,6 @@ h1 {
   color: #F5F5F5;
   background: rgba(102, 204, 255, 0.2);
   border-color: #66CCFF;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(102, 204, 255, 0.4);
-}
-
-.header a:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(102, 204, 255, 0.3);
 }
 
 .header a:focus {
@@ -133,19 +113,16 @@ h1 {
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .clear-data-btn:hover {
   background: #ef4444;
   border-color: #ef4444;
-  transform: translateY(-1px);
 }
 
 .clear-data-btn:active {
   background: #b91c1c;
   border-color: #b91c1c;
-  transform: translateY(0);
 }
 
 /* 表單區域 - 就像是一張精心設計的問卷 */
@@ -155,29 +132,6 @@ h1 {
 
 .form-group {
   margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.form-group:nth-child(1) { animation-delay: 0.1s; }
-.form-group:nth-child(2) { animation-delay: 0.2s; }
-.form-group:nth-child(3) { animation-delay: 0.3s; }
-.form-group:nth-child(4) { animation-delay: 0.4s; }
-.form-group:nth-child(5) { animation-delay: 0.5s; }
-.form-group:nth-child(6) { animation-delay: 0.6s; }
-.form-group:nth-child(7) { animation-delay: 0.7s; }
-.form-group:nth-child(8) { animation-delay: 0.8s; }
-.form-group:nth-child(9) { animation-delay: 0.9s; }
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 label {
@@ -214,7 +168,6 @@ label::before {
   line-height: 1.6;
   color: #1A1F36;
   position: relative;
-  transition: all 0.3s ease;
 }
 
 .field-description:hover {
@@ -248,7 +201,6 @@ textarea {
   font-size: 1rem;
   line-height: 1.5;
   resize: vertical;
-  transition: all 0.3s ease;
   background: #F5F5F5;
   color: #1A1F36;
 }
@@ -258,7 +210,6 @@ textarea:focus {
   border-color: #3399FF;
   background: white;
   box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.1);
-  transform: translateY(-2px);
 }
 
 textarea:hover {
@@ -283,7 +234,6 @@ textarea:hover {
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
   min-width: 200px;
 }
 
@@ -575,7 +525,6 @@ textarea:hover {
     color: #F5F5F5;
     background: rgba(102, 204, 255, 0.2);
     border-color: #66CCFF;
-    box-shadow: 0 2px 8px rgba(102, 204, 255, 0.4);
   }
 
   .header a:focus {
@@ -620,13 +569,4 @@ textarea:hover {
   }
 }
 
-/* 減少動畫效果（為敏感用戶） */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+
