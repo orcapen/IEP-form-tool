@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IEP 填寫小工具</title>
+  <style>
+    /* 基礎重置和字型設定 - 就像建築房子的地基 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft JhengHei', sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* 主容器 - 像是一個精美的畫框，包裹住內容 */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 標題區域 - 像是店家的招牌，要醒目又優雅 */
+    .header {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* 表單區域 - 就像是一張精心設計的問卷 */
+    .form-container {
+      padding: 40px 30px;
+    }
+
+    .form-group {
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+    .form-group:nth-child(5) { animation-delay: 0.5s; }
+    .form-group:nth-child(6) { animation-delay: 0.6s; }
+    .form-group:nth-child(7) { animation-delay: 0.7s; }
+    .form-group:nth-child(8) { animation-delay: 0.8s; }
+    .form-group:nth-child(9) { animation-delay: 0.9s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #374151;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    /* 為標籤加上小圓點裝飾 - 像是項目符號但更美觀 */
+    label::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      border-radius: 50%;
+    }
+
+    /* 文字輸入區域 - 像是一張舒適的書寫紙 */
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.5;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      transform: translateY(-2px);
+    }
+
+    textarea:hover {
+      border-color: #9ca3af;
+      background: white;
+    }
+
+    /* 提交按鈕 - 像是一個邀請用戶點擊的精美按鈕 */
+    .submit-container {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+      min-width: 200px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* 輸出結果區域 - 像是一個展示櫥窗 */
+    .output-section {
+      margin-top: 40px;
+      padding: 30px;
+      background: #f8fafc;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .output-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #output {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #374151;
+      min-height: 60px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 響應式設計 - 就像變形金剛，能適應不同環境 */
+    
+    /* 平板設備 */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .header {
+        padding: 30px 20px;
+      }
+
+      .form-container,
+      .output-section {
+        padding: 30px 20px;
+      }
+
+      .form-group {
+        margin-bottom: 28px;
+      }
+
+      textarea {
+        min-height: 70px;
+        padding: 14px;
+      }
+    }
+
+    /* 手機設備 */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .header {
+        padding: 25px 15px;
+      }
+
+      .form-container,
+      .output-section {
+        padding: 25px 15px;
+      }
+
+      .form-group {
+        margin-bottom: 24px;
+      }
+
+      label {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      textarea {
+        min-height: 60px;
+        padding: 12px;
+        font-size: 16px; /* 防止 iOS 縮放 */
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 1rem;
+      }
+
+      .submit-container {
+        margin-top: 30px;
+        padding-top: 24px;
+      }
+
+      #output {
+        padding: 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* 極小螢幕設備 */
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .form-container,
+      .output-section {
+        padding: 20px 12px;
+      }
+
+      textarea {
+        padding: 10px;
+      }
+
+      #output {
+        padding: 16px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* 深色模式支援 - 為喜歡深色主題的用戶準備 */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+
+      .container {
+        background: #1f2937;
+        color: #f9fafb;
+      }
+
+      label {
+        color: #f3f4f6;
+      }
+
+      textarea {
+        background: #374151;
+        border-color: #4b5563;
+        color: #f9fafb;
+      }
+
+      textarea:focus {
+        background: #4b5563;
+        border-color: #6366f1;
+      }
+
+      .output-section {
+        background: #111827;
+        border-color: #374151;
+      }
+
+      #output {
+        background: #374151;
+        border-color: #4b5563;
+        color: #f3f4f6;
+      }
+
+      .output-title {
+        color: #f3f4f6;
+      }
+    }
+
+    /* 高對比度無障礙支援 */
+    @media (prefers-contrast: high) {
+      textarea {
+        border-width: 3px;
+      }
+      
+      .submit-btn {
+        border: 2px solid #1f2937;
+      }
+    }
+
+    /* 減少動畫效果（為敏感用戶） */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 主容器 - 包裹整個應用程式 -->
+  <div class="container">
+    <!-- 標題區域 -->
+    <div class="header">
+      <h1>IEP 填寫小工具</h1>
+      <p class="subtitle">個別化教育計畫輔助工具</p>
+    </div>
+
+    <!-- 表單區域 -->
+    <div class="form-container">
+      <form id="iepForm">
+        <!-- 每個輸入欄位都包裝在 form-group 中 -->
+        <div class="form-group">
+          <label>1. 健康</label>
+          <textarea name="健康" placeholder="請描述學生的健康狀況..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>2. 感官與知覺</label>
+          <textarea name="感官與知覺" placeholder="請描述學生的感官與知覺能力..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>3. 知覺動作</label>
+          <textarea name="知覺動作" placeholder="請描述學生的知覺動作能力..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>4. 生活自理</label>
+          <textarea name="生活自理" placeholder="請描述學生的生活自理能力..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>5. 認知</label>
+          <textarea name="認知" placeholder="請描述學生的認知能力..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>6. 溝通</label>
+          <textarea name="溝通" placeholder="請描述學生的溝通能力..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>7. 情緒</label>
+          <textarea name="情緒" placeholder="請描述學生的情緒表現..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>8. 社會行為</label>
+          <textarea name="社會行為" placeholder="請描述學生的社會行為表現..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>9. 學科(領域)學習</label>
+          <textarea name="學科(領域)學習" placeholder="請描述學生的學科學習狀況..."></textarea>
+        </div>
+
+        <!-- 提交按鈕區域 -->
+        <div class="submit-container">
+          <button type="submit" class="submit-btn">生成 IEP 清單</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 輸出結果區域 -->
+    <div class="output-section">
+      <h3 class="output-title">生成的 IEP 清單</h3>
+      <div id="output">點擊上方按鈕生成 IEP 清單...</div>
+    </div>
+  </div>
+
+  <script>
+    // 等待 DOM 載入完成 - 就像等演員就位才開演
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('IEP 工具已載入完成'); // 記錄工具啟動
+      
+      const form = document.getElementById("iepForm");
+      const output = document.getElementById("output");
+      const submitBtn = document.querySelector(".submit-btn");
+
+      // 表單提交處理 - 就像收集所有答案然後整理成報告
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        console.log('開始生成 IEP 清單'); // 記錄操作開始
+        
+        // 按鈕載入狀態 - 讓用戶知道系統正在處理
+        submitBtn.disabled = true;
+        submitBtn.textContent = "生成中...";
+        submitBtn.style.opacity = "0.7";
+        
+        // 模擬處理時間，讓用戶感受到系統在工作
+        setTimeout(() => {
+          generateIEPList();
+          
+          // 恢復按鈕狀態
+          submitBtn.disabled = false;
+          submitBtn.textContent = "生成 IEP 清單";
+          submitBtn.style.opacity = "1";
+          
+          console.log('IEP 清單生成完成'); // 記錄操作完成
+        }, 800);
+      });
+
+      // 生成 IEP 清單的核心功能 - 就像把零散的筆記整理成完整報告
+      function generateIEPList() {
+        const formData = new FormData(form);
+        let outputText = "";
+        let index = 1;
+        
+        // 遍歷每個表單欄位，組織成格式化的文字
+        for (const [key, value] of formData.entries()) {
+          const content = value.trim();
+          outputText += `${index}. ${key}\n`;
+          outputText += content || "（此項目暫未填寫）";
+          outputText += "\n\n";
+          index++;
+        }
+        
+        // 更新輸出區域，添加淡入效果
+        output.style.opacity = "0";
+        setTimeout(() => {
+          output.textContent = outputText.trim() || "請填寫至少一個欄位後再生成清單";
+          output.style.opacity = "1";
+          
+          // 如果有內容，捲動到結果區域 - 像是自動翻頁到結果頁面
+          if (outputText.trim()) {
+            output.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+          }
+        }, 300);
+      }
+
+      // 為所有文字輸入框加入即時計數功能 - 就像寫作軟體的字數統計
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach((textarea, index) => {
+        // 創建字數統計顯示
+        const counter = document.createElement('div');
+        counter.className = 'char-counter';
+        counter.style.cssText = `
+          font-size: 0.8rem;
+          color: #6b7280;
+          text-align: right;
+          margin-top: 4px;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        `;
+        textarea.parentNode.appendChild(counter);
+
+        // 更新字數統計的函數
+        function updateCounter() {
+          const length = textarea.value.length;
+          counter.textContent = `${length} 個字`;
+          counter.style.opacity = length > 0 ? '1' : '0';
+        }
+
+        // 監聽輸入事件
+        textarea.addEventListener('input', updateCounter);
+        textarea.addEventListener('focus', () => {
+          console.log(`開始編輯：${textarea.name}`); // 記錄用戶操作
+          counter.style.opacity = '1';
+        });
+        textarea.addEventListener('blur', () => {
+          if (textarea.value.length === 0) {
+            counter.style.opacity = '0';
+          }
+        });
+
+        // 初始化字數統計
+        updateCounter();
+      });
+
+      // 加入複製到剪貼簿功能 - 就像一鍵複製功能
+      const copyButton = document.createElement('button');
+      copyButton.type = 'button';
+      copyButton.className = 'copy-btn';
+      copyButton.textContent = '複製到剪貼簿';
+      copyButton.style.cssText = `
+        background: #10b981;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-top: 16px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(10px);
+      `;
+
+      // 複製按鈕的樣式效果
+      copyButton.addEventListener('mouseenter', () => {
+        copyButton.style.background = '#059669';
+        copyButton.style.transform = 'translateY(-2px)';
+      });
+      copyButton.addEventListener('mouseleave', () => {
+        copyButton.style.background = '#10b981';
+        copyButton.style.transform = 'translateY(0)';
+      });
+
+      // 複製功能實現
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(output.textContent);
+          
+          // 成功回饋 - 就像給用戶一個「已完成」的手勢
+          const originalText = copyButton.textContent;
+          copyButton.textContent = '已複製!';
+          copyButton.style.background = '#059669';
+          
+          setTimeout(() => {
+            copyButton.textContent = originalText;
+            copyButton.style.background = '#10b981';
+          }, 2000);
+          
+          console.log('文字已複製到剪貼簿'); // 記錄操作
+        } catch (err) {
+          console.error('複製失敗:', err);
+          alert('複製失敗，請手動選取文字複製');
+        }
+      });
+
+      // 將複製按鈕加入到輸出區域
+      document.querySelector('.output-section').appendChild(copyButton);
+
+      // 監聽輸出內容變化，控制複製按鈕顯示
+      const observer = new MutationObserver(() => {
+        const hasContent = output.textContent.trim() && 
+                          !output.textContent.includes('點擊上方按鈕') &&
+                          !output.textContent.includes('請填寫至少一個欄位');
+        
+        if (hasContent) {
+          copyButton.style.opacity = '1';
+          copyButton.style.transform = 'translateY(0)';
+        } else {
+          copyButton.style.opacity = '0';
+          copyButton.style.transform = 'translateY(10px)';
+        }
+      });
+
+      observer.observe(output, { childList: true, characterData: true, subtree: true });
+
+      // 鍵盤快捷鍵支援 - 就像專業軟體的快速操作
+      document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + Enter: 快速提交表單
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          form.dispatchEvent(new Event('submit'));
+          console.log('使用快捷鍵提交表單'); // 記錄快捷鍵使用
+        }
+      });
+
+      // 自動儲存功能 - 就像自動存檔功能，防止資料遺失
+      function autoSave() {
+        const formData = {};
+        textareas.forEach(textarea => {
+          if (textarea.value.trim()) {
+            formData[textarea.name] = textarea.value;
+          }
+        });
+        
+        if (Object.keys(formData).length > 0) {
+          localStorage.setItem('iep_form_data', JSON.stringify(formData));
+          console.log('表單資料已自動儲存'); // 記錄自動儲存
+        }
+      }
+
+      // 載入先前儲存的資料
+      function loadSavedData() {
+        try {
+          const savedData = localStorage.getItem('iep_form_data');
+          if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.entries(formData).forEach(([name, value]) => {
+              const textarea = document.querySelector(`textarea[name="${name}"]`);
+              if (textarea) {
+                textarea.value = value;
+                // 觸發字數統計更新
+                textarea.dispatchEvent(new Event('input'));
+              }
+            });
+            console.log('已載入先前儲存的資料'); // 記錄資料載入
+          }
+        } catch (err) {
+          console.error('載入儲存資料失敗:', err);
+        }
+      }
+
+      // 每 30 秒自動儲存一次
+      setInterval(autoSave, 30000);
+
+      // 在欄位失去焦點時也進行儲存
+      textareas.forEach(textarea => {
+        textarea.addEventListener('blur', autoSave);
+      });
+
+      // 載入頁面時嘗試恢復資料
+      loadSavedData();
+
+      console.log('IEP 工具初始化完成，所有功能已就緒'); // 記錄初始化完成
+    });
+  </script>
+</body>
+</html>
